@@ -1,0 +1,2 @@
+tránh sử dụng các chân led vì sẽ có hiện tượng sụt áp
+(10 ms) gây sai lệch các xung => lỗi frame truyền
