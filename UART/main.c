@@ -11,7 +11,7 @@ int main (void)
 	TIM2_Config();
 	
 	init_interrupt_PA0();
-	char a[] = "ab\n";
+	char a[] = "a\n";
 	char b;
 GPIOD->ODR |= GPIO_ODR_ODR_12;
 
