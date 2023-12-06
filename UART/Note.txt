@@ -1,2 +1,6 @@
 tránh sử dụng các chân led vì sẽ có hiện tượng sụt áp
 (10 ms) gây sai lệch các xung => lỗi frame truyền
+
+GPIO UART:
+Đọc các xung dữ liệu ở chân A0(dùng usb uart)
+Gửi các xung dữ liệu ở chân D7 (logic analyzer)
