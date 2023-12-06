@@ -1,5 +1,7 @@
 tránh sử dụng các chân led vì sẽ có hiện tượng sụt áp
-(10 ms) gây sai lệch các xung => lỗi frame truyền
+(10 ms) gây sai lệch các xung => lỗi frame truyền (SAI)
+=>Lỗi do cấu hình ngắt chân A0, khi ngắt xảy ra kích mức 0 cho chân D12
+nên gây ra lỗi frame truyền
 
 GPIO UART:
 Đọc các xung dữ liệu ở chân A0(dùng usb uart)
