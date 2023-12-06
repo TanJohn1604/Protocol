@@ -4,3 +4,5 @@ tránh sử dụng các chân led vì sẽ có hiện tượng sụt áp
 GPIO UART:
 Đọc các xung dữ liệu ở chân A0(dùng usb uart)
 Gửi các xung dữ liệu ở chân D7 (logic analyzer)
+
+Dùng Timer 2 để đếm thời gian cho các xung 
