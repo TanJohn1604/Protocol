@@ -399,6 +399,11 @@
               <FileType>1</FileType>
               <FilePath>.\interrupt.c</FilePath>
             </File>
+            <File>
+              <FileName>gpio_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\gpio_i2c.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -413,6 +418,11 @@
               <FileName>interrupt.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\interrupt.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\gpio_i2c.h</FilePath>
             </File>
           </Files>
         </Group>
