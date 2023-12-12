@@ -1,0 +1,23 @@
+start bit được xác định khi
+
+chân SDA và SCl đang ở mức cao
+chân SDA kéo xuống mức thấp
+sau đó chân SCL kéo xuống mức thấp theo
+
+dữ liệu ở chân SDA sẽ được ghi nhận khi chân SCL chuyển từ mức thấp sang múc cao
+tốt nhất là chân SCL kéo lên mức cao khi xung SDA đang ở giữa chu kỳ
+
+sau khi kết thúc một data truyền thì slave sẽ kéo mức thấp tại chân SDA,
+lưu ý sau khi kết thúc truyền SDA của master phải đưa lên cao để đợi slave gửi tín hiệu ACK
+
+lý do có trở kéo lên ở SCL và SDA là do các chân ở chế độ open - drain
+có nghĩa là có 2 trạng thái:
+1 trạng thái xuống thấp và 1 trạng thái thả trôi
+
+lý do là pmos của port bị tắt chỉ còn nmos kéo xuống đất
+
+hơn nữa việc cấu hình open drain sẽ là cổng OR cho các tín hiệu mức thấp
+có nghĩa là khi 1 thiết bị ke9os xuống mức thấp, toàn bộ đường dây sẽ kéo xuống mức thấp theo.
+
+cũng để tránh trường hợp một thiết bị kích ngõ ra mức cao và một thiết bị kích ngõ ra mức thấp
+cùng một thời điểm
