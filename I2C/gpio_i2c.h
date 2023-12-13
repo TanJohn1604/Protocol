@@ -7,6 +7,10 @@
 #define SCL_ON GPIOD->ODR |= GPIO_ODR_ODR_1;
 #define SCL_OFF GPIOD->ODR &=~ GPIO_ODR_ODR_1;
 
+#define SDA_CONFIG_INPUT GPIOD->MODER &=~ GPIO_MODER_MODE0;
+#define SDA_CONFIG_OUTPUT GPIOD->MODER |= GPIO_MODER_MODER0_0;
+
+
 void send_i2c_string(unsigned char * data,unsigned char add);
 void init_i2c();
 void send_i2c_byte(unsigned char * data,unsigned char size,unsigned char add);

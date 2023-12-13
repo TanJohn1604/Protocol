@@ -54,6 +54,11 @@ delay_ms(1);
 
 //clock for ack
 SDA_ON
+//read ACK, wait for ACK
+SDA_CONFIG_INPUT
+while(GPIOD->IDR & (1<<0));
+SDA_CONFIG_OUTPUT
+//read ACK, wait for ACK
 delay_ms(1);
 SCL_ON
 delay_ms (1);
@@ -85,6 +90,11 @@ delay_ms(1);
 
 //clock for ack
 SDA_ON
+//read ACK, wait for ACK
+SDA_CONFIG_INPUT
+while(GPIOD->IDR & (1<<0));
+SDA_CONFIG_OUTPUT
+//read ACK, wait for ACK
 delay_ms(1);
 SCL_ON
 delay_ms (1);
@@ -138,6 +148,11 @@ delay_ms(1);
 
 //clock for ack
 SDA_ON
+//read ACK, wait for ACK
+SDA_CONFIG_INPUT
+while(GPIOD->IDR & (1<<0));
+SDA_CONFIG_OUTPUT
+//read ACK, wait for ACK
 delay_ms(1);
 SCL_ON
 delay_ms (1);
@@ -169,6 +184,11 @@ delay_ms(1);
 
 //clock for ack
 SDA_ON
+//read ACK, wait for ACK
+SDA_CONFIG_INPUT
+while(GPIOD->IDR & (1<<0));
+SDA_CONFIG_OUTPUT
+//read ACK, wait for ACK
 delay_ms(1);
 SCL_ON
 delay_ms (1);
