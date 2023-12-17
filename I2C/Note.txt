@@ -21,3 +21,14 @@ có nghĩa là khi 1 thiết bị ke9os xuống mức thấp, toàn bộ đườ
 
 cũng để tránh trường hợp một thiết bị kích ngõ ra mức cao và một thiết bị kích ngõ ra mức thấp
 cùng một thời điểm
+
+
+
+
+-------------------------------------	SDA = PB9 | SCL = PB6
+đôi lúc có hiện tượng 1 số xung bất thường ở chân SDA , cả 2 SDA và SCL đều 
+chuyển xuống thấp sau đó lên mức cao (250ns)  không rõ lý do
+đôi lúc truyền sang LCD không nhận, 
+gửi lệnh clear LCD bị sai 9không phải là frame 0xc 0x8 0x1c 0x18)
+cấu hình SDA từ output sang input để đọc ACK bị lỗi không rõ nguyên nhân, thường hay kèm theo
+việc xung ở chân chuyển trạng thái liên tục (nhanh trong thời gian ngắn) chưa rõ nguyên do;
