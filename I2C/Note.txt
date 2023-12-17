@@ -43,3 +43,4 @@ phải có biến timeout.
 3. hay xuất hiện hiện tượng khi nạp code lại lcd không hoạt động bình thường
 có thể do LCD không nhận được lệnh init_lcd chăng? tại vì biến timeout nằm trong while loop
 lệnh int nằm trước đó. Có thể sau khi biến timeout đếm thì tín hiệu ổn định chăng?
+4. phải ấn reset + reset nguồn lcd thì mới hoạt động bình thường, có khi không cần. chưa rõ nguyên nhân
