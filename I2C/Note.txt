@@ -32,3 +32,14 @@ chuyển xuống thấp sau đó lên mức cao (250ns)  không rõ lý do
 gửi lệnh clear LCD bị sai 9không phải là frame 0xc 0x8 0x1c 0x18)
 cấu hình SDA từ output sang input để đọc ACK bị lỗi không rõ nguyên nhân, thường hay kèm theo
 việc xung ở chân chuyển trạng thái liên tục (nhanh trong thời gian ngắn) chưa rõ nguyên do;
+
+1. 
+khi chuyển tốc độ bit lúc đầu lcd không nhận được lệnh, phải rút nguồn lcd
+sau đó reset chip chạy lại thì mọi chuyện bình thường
+2.
+thêm biến timeout ở vị trí kiểm tra bit ACK
+chưa hiểu lý do tại sao ở cặp chân D0&D1 thì không cần nhưng ở cặp chân B9&B6 thì
+phải có biến timeout.
+3. hay xuất hiện hiện tượng khi nạp code lại lcd không hoạt động bình thường
+có thể do LCD không nhận được lệnh init_lcd chăng? tại vì biến timeout nằm trong while loop
+lệnh int nằm trước đó. Có thể sau khi biến timeout đếm thì tín hiệu ổn định chăng?

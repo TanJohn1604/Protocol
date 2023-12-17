@@ -299,7 +299,7 @@ void init_i2c_LSM303DLHC()
 //B6 - CLK
 //5.1 Set the Pin as OUTPUT
 //enable port B
-RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+
 	
 GPIOB->MODER |= GPIO_MODER_MODER6_0;	
 GPIOB->MODER |= GPIO_MODER_MODER9_0;	
@@ -316,12 +316,13 @@ GPIOB->PUPDR &=~ GPIO_PUPDR_PUPD9_1;
 
 void send_i2c_byte_LSM303DLHC(unsigned char * data,unsigned char size,unsigned char add)
 {
+unsigned int timeout=0;
 unsigned char byte_temp;
-	delay_ms(10);
+	delay_ms(1);
 SDA_OFF_B9
-delay_ms(10);
+delay_ms(1);
 SCL_OFF_B6
-delay_ms(10);
+delay_ms(1);
 
 //address + r/w
 for (int i=7;i>=0;i--)
@@ -334,11 +335,11 @@ else
 {
 	SDA_OFF_B9
 }
-delay_ms(10);
+delay_ms(1);
 SCL_ON_B6
-delay_ms (10);
+delay_ms (1);
 SCL_OFF_B6
-delay_ms(10);
+delay_ms(1);
 }
 //address + r/w
 
@@ -348,12 +349,27 @@ SDA_ON_B9
 //SDA_B9_CONFIG_INPUT
 //while(GPIOB->IDR & (1<<9));
 //SDA_B9_CONFIG_OUTPUT
+
+SDA_B9_CONFIG_INPUT
+while(GPIOB->IDR & (1<<9))
+{
+	timeout++;
+	if (timeout>1000000)
+	{
+		SDA_B9_CONFIG_OUTPUT
+		SDA_ON_B9
+		SCL_ON_B6
+		return;
+	}
+}
+SDA_B9_CONFIG_OUTPUT
+
 //read ACK, wait for ACK
-delay_ms(10);
+delay_ms(1);
 SCL_ON_B6
-delay_ms (10);
+delay_ms (1);
 SCL_OFF_B6
-delay_ms(10);
+delay_ms(1);
 //clock for ack
 
 // data
@@ -371,37 +387,47 @@ else
 {
 	SDA_OFF_B9
 }
-delay_ms(10);
+delay_ms(1);
 SCL_ON_B6
-delay_ms (10);
+delay_ms (1);
 SCL_OFF_B6
-delay_ms(10);
+delay_ms(1);
 }
 
 //clock for ack
 SDA_ON_B9
 //read ACK, wait for ACK
-//SDA_B9_CONFIG_INPUT
-//while(GPIOB->IDR & (1<<9));
-//SDA_B9_CONFIG_OUTPUT
+SDA_B9_CONFIG_INPUT
+while(GPIOB->IDR & (1<<9))
+{
+	timeout++;
+	if (timeout>1000000)
+	{
+		SDA_B9_CONFIG_OUTPUT
+		SDA_ON_B9
+		SCL_ON_B6
+		return;
+	}
+}
+SDA_B9_CONFIG_OUTPUT
 //read ACK, wait for ACK
-delay_ms(10);
+delay_ms(1);
 SCL_ON_B6
-delay_ms (10);
+delay_ms (1);
 SCL_OFF_B6
-delay_ms(10);
+delay_ms(1);
 //clock for ack
 }
 //data
 
 //stop bit
 SDA_OFF_B9
-delay_ms(10);
+delay_ms(1);
 SCL_ON_B6
-delay_ms(10);
+delay_ms(1);
 SDA_ON_B9
-delay_ms(40);
-		
+delay_ms(10);
+	
 }
 
 
