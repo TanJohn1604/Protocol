@@ -10,7 +10,7 @@ RCC->APB1ENR |= RCC_APB1ENR_PWREN;  // RCC->APB1ENR |= 1<<28;
 PWR->CR |= PWR_CR_VOS;  // PWR->CR |= 3<<14; 
 
 //RCC->CFGR |= RCC_CFGR_HPRE_DIV8;
-
+//8Mhz
 // 3. Select the Clock Source and wait for it to be set
 RCC->CFGR |= RCC_CFGR_SW_HSE;  
 while ((RCC->CFGR & RCC_CFGR_SWS_HSE) != RCC_CFGR_SWS_HSE);
@@ -28,6 +28,7 @@ void GPIO_Config (void)
        
 	// 1. Enable the GPIO CLOCK
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 	
 	// 2. Set the Pin as OUTPUT
 	GPIOD->MODER |= GPIO_MODER_MODER12_0;	
