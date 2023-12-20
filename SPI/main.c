@@ -11,12 +11,13 @@ int main (void)
 	TIM2_Config();
 init_spi();
 	unsigned char data[]="lhtan_spi";
+
+
 	while (1)
 	{
-	send_spi_byte(data,sizeof(data));
-	delay_ms(1000);
-
-
+send_2_byte(TxControlReg|0x80,0);
+delay_ms(1000);
 	}
+	
 }
 

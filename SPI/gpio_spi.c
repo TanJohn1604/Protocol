@@ -3,6 +3,47 @@
 
 
 
+void send_2_byte(unsigned char add,unsigned char da)
+{
+unsigned char byte_temp;
+EN_ON
+unsigned char data[2];
+	data[0] = add;
+	data[1] = da;
+// data MOSI
+for(int i=0;i<2;i++)
+{
+byte_temp =data[i];
+
+for (int i=7;i>=0;i--)
+{
+
+if(byte_temp & 1<<i)
+{
+	MOSI_ON
+}
+else
+{
+	MOSI_OFF
+}
+
+delay_ms(10);
+CLOCK_ON
+delay_ms(10);
+CLOCK_OFF
+}
+
+
+}
+//data MOSI
+
+
+EN_OFF
+}
+
+
+
+
 
 void init_spi()
 {
@@ -32,6 +73,39 @@ GPIOD->PUPDR &=~ GPIO_PUPDR_PUPD1_1;
 
 MOSI_OFF
 CLOCK_OFF
+
+
+///////////NOT COMPLETED///////////////////
+//reset
+send_2_byte(CommandReg,PCD_SoftReset);
+delay_ms(1000);
+
+// Reset baud rates
+send_2_byte(TxModeReg,0x00);
+send_2_byte(RxModeReg,0x00);
+// Reset ModWidthReg
+send_2_byte(ModWidthReg,0x26);
+
+
+
+// TAuto=1; timer starts automatically at the end of the transmission in all communication modes at all speeds
+send_2_byte(TModeReg,0x80);
+// TPreScaler = TModeReg[3..0]:TPrescalerReg, ie 0x0A9 = 169 => f_timer=40kHz, ie a timer period of 25µs.
+send_2_byte(TPrescalerReg,0xA9);
+
+
+// Reload timer with 0x3E8 = 1000, ie 25ms before timeout.
+send_2_byte(TReloadRegH,0x03);
+
+
+
+send_2_byte(TReloadRegL, 0xE8);
+
+send_2_byte(TxASKReg, 0x40);		// Default 0x00. Force a 100 % ASK modulation independent of the ModGsPReg register setting
+send_2_byte(ModeReg, 0x3D);
+
+//antena on but clear orthe bit
+send_2_byte(TxControlReg,  0x03);
 }
 
 
