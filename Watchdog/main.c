@@ -1,30 +1,19 @@
 #include "clock.h"
-
-
-
+#include "watchdog.h"
 
 int main (void)
 {
 
 	SysClockConfig ();
 	GPIO_Config ();
-	TIM2_Config();
+	TIM2_Config();	
+init_watchdog(10);
+start_watchdog();
 
-	unsigned char data[]="lhtan_spi";
-
-	
-	
-	IWDG->KR = 0x5555;
-	while(IWDG->SR & IWDG_SR_PVU);
-	IWDG->PR = 0b111;
-	while(IWDG->SR & IWDG_SR_RVU);
-	IWDG->RLR = 125 * 7; //<4095
-	IWDG->KR = 0xaaaa;
-	IWDG->KR = 0xcccc;
 int count = 0;
 
 	while (1)
-	{
+	{	
 		if(count<5)
 		{
 		delay_ms(500);

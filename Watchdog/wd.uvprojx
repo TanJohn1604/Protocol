@@ -394,6 +394,11 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+            <File>
+              <FileName>watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\watchdog.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -403,6 +408,11 @@
               <FileName>clock.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\clock.h</FilePath>
+            </File>
+            <File>
+              <FileName>watchdog.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\watchdog.h</FilePath>
             </File>
           </Files>
         </Group>
