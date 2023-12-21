@@ -3,7 +3,7 @@
 #include "stm32f4xx.h"
 
 
-void init_watchdog(unsigned char second);
-void start_watchdog();
-	void stop_watchdog();
+void init_IWDG(unsigned char second);
+void start_IWDG();
+	void stop_IWDG();
 #endif

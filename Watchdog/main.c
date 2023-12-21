@@ -7,8 +7,8 @@ int main (void)
 	SysClockConfig ();
 	GPIO_Config ();
 	TIM2_Config();	
-init_watchdog(10);
-start_watchdog();
+init_IWDG(10);
+start_IWDG();
 
 int count = 0;
 

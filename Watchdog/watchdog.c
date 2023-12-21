@@ -1,7 +1,7 @@
 #include "watchdog.h"
 
 
-void init_watchdog(unsigned char second)
+void init_IWDG(unsigned char second)
 {
 IWDG->KR = 0x5555;
 while(IWDG->SR & IWDG_SR_PVU);
@@ -12,11 +12,11 @@ IWDG->KR = 0xaaaa;
 
 }
 
-void start_watchdog()
+void start_IWDG()
 {
 	IWDG->KR = 0xcccc;
 }
-void stop_watchdog()
+void stop_IWDG()
 {
 	IWDG->KR = 0xaaaa;
 }
