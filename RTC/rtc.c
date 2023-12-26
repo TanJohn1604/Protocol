@@ -9,8 +9,8 @@ typedef struct{
 
 
 typedef struct{
-  uint8_t Month;    
-  uint8_t Day;     
+	uint8_t Day;
+  uint8_t Month;     
   uint8_t Year;  
 	
 }RTC_DateTypeDef;
@@ -19,34 +19,55 @@ typedef struct{
 	RTC_TimeTypeDef sTime;
 	RTC_DateTypeDef sDate;
 
-void RTC_Init(void){
+void RTC_Init(unsigned char h,unsigned char m,unsigned char s,
+							unsigned char day,unsigned char month,unsigned char year){
 
 	RCC->APB1ENR |= RCC_APB1ENR_PWREN;					//enable peripheral clock power
-	PWR->CR |= PWR_CR_DBP;											//enable access to the RTC registers
+	PWR->CR |= PWR_CR_DBP;											//enable access to the RTC registers - 17.3.5 RTC register write protection
+	///17.3.1 Clock and prescalers. chon LSI 
+	RCC->CSR |= RCC_CSR_LSION;									//enable LSI - 6.3.18 RCC clock control & status register
+	while(!(RCC->CSR & RCC_CSR_LSIRDY));				//wait for LSI ready flag - 6.3.18 RCC clock control & status register
 	
-	RCC->CSR |= RCC_CSR_LSION;									//enable LSI
-	while(!(RCC->CSR & RCC_CSR_LSIRDY));				//wait for LSI ready flag
-
-	RCC->BDCR |= 0x8200;												//select LSI and enable RTC
-	
+	//6.3.17 
+	//Bits 9:8 RTCSEL[1:0]: RTC clock source selection
+	//Bit 15 RTCEN: RTC clock enable
+	RCC->BDCR |= 0x8200;												//select LSI and enable RTC 
+	//17.3.5 
+	//RTC register write protection
 	RTC->WPR |= 0xCA;														//enter key to unlock write protection
 	RTC->WPR |=	0x53;
-	
+	//17.3.5 
+	//Calendar initialization and configuration
 	RTC->ISR |= RTC_ISR_INIT;
 	while(!(RTC->ISR & RTC_ISR_INITF));					//wait for RTC init ready flag
+	//first
+	//15-bit synchronous prescaler configured through the PREDIV_S
+	RTC->PRER |=0xF9;//32000Hz / (249+1) = 128
 	
-	RTC->PRER |=0xF9;
-	RTC->PRER |=0x7F<<16;
+	//second
+	//7-bit asynchronous prescaler configured through the PREDIV_A
+	RTC->PRER |=0x7F<<16;//128 /(127 +1 ) =1Hz
 	
-	RTC->TR |= 0x130000;						//set hour as 13
-	RTC->TR |= 0x5700;							//set minute as 57
+	//Calendar initialization and configuration
+	// Load the initial time and date values in the shadow registers (RTC_TR and RTC_DR),
+	//and configure the time format (12 or 24 hours) through the FMT bit in the RTC_CR
+	//register.
 	
-	RTC->DR |=0x215124;							//SET date as 21/11/25 thuesday
+	RTC->TR &=~ RTC_TR_PM;//24hour format
+	RTC->TR = 0;
+	RTC->TR |= h<<16 | m<<8 | s; 					//set time
+
+  RTC->DR = 0;
+	RTC->DR |= year<<16 | month<<8 | day ;//set date
+	
+	//1: Calendar values (when reading from RTC_SSR, RTC_TR, and RTC_DR) are taken
+	//directly from the calendar counters.
 	RTC->CR |= RTC_CR_BYPSHAD;
 	
+	//Exit the initialization mode by clearing the INIT bit.
 	RTC->ISR &= ~RTC_ISR_INIT;			//clear init bit
-	
-	PWR->CR &= ~PWR_CR_DBP;					// disable access to RTC registers
+	// disable access to RTC registers
+	PWR->CR &= ~PWR_CR_DBP;					
 
 }
 

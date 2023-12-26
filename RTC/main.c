@@ -8,7 +8,9 @@ int main (void)
 	SysClockConfig ();
 	GPIO_Config ();
 	TIM2_Config();	
-RTC_Init();
+RTC_Init(0x23,0x59,0x40,//hh/mm/ss
+				0x26,0x12,0x23);//dd/mm/yy
+	
 int count = 0;
 
 	while (1)
